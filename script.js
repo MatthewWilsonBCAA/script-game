@@ -12,10 +12,10 @@ window.addEventListener('keydown', function (e) {
         userXInput += 3;
     }
     if (e.key == 'w' && y_position > 0) {
-        userXInput -= 3;
+        userYInput -= 3;
     }
     else if (e.key == 's' && y_position < 1000) {
-        userXInput += 3;
+        userYInput += 3;
     }
     console.log(window.innerWidth)
     document.querySelector('img').style.left = `${x_position}px`;
