@@ -15,11 +15,11 @@ let keys = {
 function ManipulatePosition() {
     if (userXInput < 0) {
         x_position -= movementSpeed;
-        userXInput += movementSpeed;
+        userXInput += 2;
     }
-    else if (userXInput > 0) {
+    if (userXInput > 0) {
         x_position += movementSpeed;
-        userXInput -= movementSpeed;
+        userXInput -= 2;
     }
     if (userYInput > 0) {
         y_position -= 5
@@ -48,10 +48,10 @@ window.addEventListener('keydown', function (e) {
     }
     document.querySelector('p').innerHTML = `You pressed ${e.key}`;
     if (keys.kA == true && x_position > 0) {
-        userXInput -= movementSpeed*2;
+        userXInput -= movementSpeed;
     }
-    else if (keys.kD == true && x_position < screenWidth) {
-        userXInput += movementSpeed*2;
+    if (keys.kD == true && x_position < screenWidth) {
+        userXInput += movementSpeed;
     }
     if (keys.kW == true && userYInput == -1) {
         userYInput = 50;
