@@ -12,7 +12,31 @@ let keys = {
     kD: false,
     kW: false,
 }
+class Circle {
+    constructor (x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.radius = r;
+        this.drawn = false;
+    }
+    draw_obj () {
+        const sprite = document.createElement("img");
+        sprite.src = "imgTwo.png";
+        sprite.style = `position:absolute; left: ${this.x}px; top: ${this.y}px;`;
+        sprite.id = "b";
+        this.w = sprite.width;
+        this.h = sprite.height;
+        document.body.appendChild(sprite);
+        this.drawn = true;
+    }
+}
+
+const temp_circle = new Circle(500, 200, 7)
+
 function ManipulatePosition() {
+    if (temp_circle.drawn == false) {
+        temp_circle.draw_obj();
+    }
     if (userXInput < 0) {
         x_position -= movementSpeed;
         userXInput += 2;
@@ -32,8 +56,24 @@ function ManipulatePosition() {
         y_position = 300
         userYInput = -1
     }
-    document.querySelector('img').style.left = `${x_position}px`;
-    document.querySelector('img').style.top = `${y_position}px`;
+    let leftX = temp_circle.x - temp_circle.w;
+    let rightX = temp_circle.x + temp_circle.w;
+    let topY = temp_circle.y - temp_circle.h;
+    let bottomY = temp_circle.y + temp_circle.h;
+    if (x_position > leftX && x_position < temp_circle.x && y_position > topY && y_position < bottomY) {
+        x_position -= movementSpeed + 2;
+    }
+    else if (x_position < rightX && x_position > temp_circle.x && y_position > topY && y_position < bottomY) {
+        x_position += movementSpeed + 2;
+    }
+    else if (x_position < rightX && x_position > leftX && y_position > topY && y_position < temp_circle.y) {
+        y_position -= temp_circle.radius;
+    }
+    else if (x_position < rightX && x_position > leftX && y_position < bottomY && y_position > temp_circle.y) {
+        y_position -= temp_circle.radius;
+    }
+    document.querySelector('#player').style.left = `${x_position}px`;
+    document.querySelector('#player').style.top = `${y_position}px`;
 }
 setInterval(ManipulatePosition, 15)
 window.addEventListener('keydown', function (e) {
